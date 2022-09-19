@@ -1,0 +1,12 @@
+/* Christopher Rose
+Assignment Lab 4
+Dr.Grabowski
+
+This is to test LinkList */
+import java.util.*;
+
+public class TestLinkList {
+
+    public static void main(String[] args) {
+    }
+}
