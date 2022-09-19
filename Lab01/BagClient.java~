@@ -1,0 +1,59 @@
+public class BagClient {
+   
+    public static void main (String [] args) {
+
+	// constructs a new Bag that can hold 15 integers
+        System.out.println("Testing constructor Bag(), add(int n), printing");
+	Bag b= new Bag();
+	b.add(45);
+	b.add(-7);
+        System.out.println("b = " + b);
+
+	Bag b2 = new Bag();
+        System.out.println("b2 = " + b2);
+
+        System.out.println("\nTesting size()");
+	System.out.println("size of Bag b = " + b.size());
+	System.out.println("size of Bag b2 = " + b2.size());
+
+	System.out.println("\nTesting isEmpty()");
+	if (b.isEmpty())
+	    System.out.println("b is empty");
+	else if (b2.isEmpty())
+	    System.out.println("b2 is empty");
+	else
+	    System.out.println("Neither bag is empty");
+	System.out.println("\nTesting add(Bag  b)");
+	
+	Bag b3 =  new Bag(20);
+	// add 18 integers to Bag b3
+	for (int  i  =  0;  i  <18;  i++)
+	    b3.add(i*10);
+	System.out.println("b3 = " +  b3);
+	//  add  the  2  integers  from  Bag  b  to  Bag  b3
+	b3.add(b);
+	System.out.println("b3  =  "  +  b3);
+	System.out.println("b  =  "  +  b);
+	//  try  to  add  b  to  b3  AGAIN  (should  not  work)
+	b3.add(b);
+	System.out.println("b3  =  "  +  b3);
+
+	System.out.println("\nTesting  remove(int  target)");
+	Bag  b4  =  new  Bag(10);
+	// add values
+	b4.add(45);
+	b4.add(-7);
+	b4.add(8);
+	b4.add(15);
+	b4.add(-1);
+	b4.add(14);
+	b4.add(23);
+	System.out.println("b4  =  "  +  b4);
+	//  remove  15
+	b4.remove(15);
+	System.out.println("b4  =  "  +  b4);
+	//  try  to  remove  something  that  is  not  in  Bag  b4
+	b4.remove(999);
+	System.out.println("b4  =  "  +  b4);
+    }
+}

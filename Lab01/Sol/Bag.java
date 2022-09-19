@@ -1,0 +1,104 @@
+import java.util.*;
+
+public class Bag {
+
+    // field
+    private int [] items;
+    private int size;
+
+    // constructors
+    public Bag(int cap) {
+	this.items = new int[cap];
+	this.size = 0;
+    }
+
+    public Bag() {
+	this(5);
+    }
+
+    // methods
+
+    // Parameter: int n - value to add to this Bag
+    // Postcondition: This Bag has one more integer in it. Its size has
+    //               has increased by 1 to reflect this. If there is no
+    //               room in the Bag for n, the Bag is unchanged.
+    public void add(int n) {
+	if (this.size == this.items.length)
+	    return;
+	this.items[this.size] = n;
+	this.size++;
+    }
+
+    // Parameter: Bag other - another Bag object
+    // Postcondition: This Bag has had all the integers in the other Bag added
+    //                to it. This Bag unchanged if there is not enough room
+    //                for the other Bag's integers.
+    public void add(Bag other) {
+	if (this.size() + other.size() > this.items.length)
+	    return;
+	for (int i =0; i < other.size(); i++)
+	    this.add(other.items[i]);
+    }
+
+
+    // Parameter: int target - integer value in the Bag
+    // Postcondition: target has been removed from this Bag, if target
+    //                was not in the
+    //                Bag in the first place, this Bag is unchanged 
+    public void remove (int target) {
+	int pos = 0;
+	while (pos < size && items[pos] != target)
+	    pos++;
+        if (pos >= size)
+	    return;
+        for (int i = pos; i < size-1; i++)
+	    items[i] = items[i+1];
+	size--;
+	
+    }
+
+    // Returns: an integer from the Bag
+    // Postcondition: the integer returned has been removed from the Bag
+    public int grab() {
+        Random rand = new Random();
+	int pos = rand.nextInt(size);
+	int temp = this.items[pos];
+	this.remove(temp);
+	return temp;
+    }
+
+    // Parameter: Bag other - another Bag
+    // Returns: true if this Bag has the same integers as the other Bag
+    public boolean equals(Bag other) {
+	if (this.size() != other.size())
+	    return false;
+        Bag temp = new Bag(other.size());
+	temp.add(other);
+        for(int i =0; i < this.size(); i++)
+	    temp.remove(this.items[i]);
+	return temp.isEmpty();
+    }
+
+
+    // Returns: number of integers in this Bag.
+    public int size() {
+	return this.size;
+    }
+
+    // Returns: true if this Bag is empty
+    public boolean isEmpty() {
+	return size == 0;
+    }
+
+    // Returns: String representation of this Bag
+    public String toString() {
+	if (this.size == 0)
+	    return "[]";
+	String result = "[";
+	for (int i = 0; i < this.size-1; i++)
+	    result += items[i] + ", ";
+        result += items[this.size-1];
+        result +=  "]";
+	return result;
+    }
+}
