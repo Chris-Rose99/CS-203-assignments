@@ -1,0 +1,17 @@
+/* Chris Rose
+203 Assignment 1.0
+Dr. Grabowski */
+import java.util.*;
+
+public class Jumble {
+    // array of strings representing the solutions
+    private String [] solutions;
+    // array of strings representing the problems
+    private String [] problems;
+
+    // constructs Jumble puzzle
+    public Jumble(String [] a) {
+	for (int i = 0; i < a.length(); i++) {
+	    
+	
+	
