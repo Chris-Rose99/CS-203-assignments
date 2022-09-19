@@ -1,0 +1,314 @@
+// ============================
+// Christopher Rose
+// Dr.Grabowski
+// CIS 203 Assignment 9, Extending ArrayList<E>.
+// Class ArrayList<E> can be used to store a list of values of type E.
+// ============================
+import java.util.*;
+
+// =====================================
+// DO NOT MODIFY THE CODE IN THIS BLOCK!
+// Look for the line of * to find the
+// spot to write your code.
+// =====================================
+public class ArrayList<E> {
+
+    private E[] elementData; // list of values
+    private int size;        // current number of elements in the list
+
+    public static final int DEFAULT_CAPACITY = 100;
+
+    // post: constructs an empty list of default capacity
+    public ArrayList() {
+        this(DEFAULT_CAPACITY);
+    }
+
+    // pre : capacity >= 0 (throws IllegalArgumentException if not)
+    // post: constructs an empty list with the given capacity
+    //    @SuppressWarnings("unchecked")
+    public ArrayList(int capacity) {
+        if (capacity < 0) {
+            throw new IllegalArgumentException("capacity: " + capacity);
+        }
+        elementData = (E[]) new Object[capacity];
+        size = 0;
+    }
+    
+    // *****************************************************
+
+    // Adds all elements in the given list at the index of the initial list
+    public void addAll (int pos, ArrayList<E> other) {
+	int l = other.size();
+	for (int i = 0; i < l; i++) {
+	    add(pos, other.get(i));
+	    pos = pos + 1;
+	}
+    }
+
+    // returns whether its true or false that all the elements in the given list are in the initial list
+    public boolean containsAll (ArrayList<E> other) {
+	for (int i = 0; i < other.size(); i++) {
+	    if (contains(other.get(i)) == false) {
+		return false;
+	    }
+	}
+	return true;
+    }
+
+    // returns whether its true or false that the two lists are identical
+    public boolean equals(Object other) {
+        ArrayList list = new ArrayList();
+	list = (ArrayList) other;
+	if (size() != list.size()) {
+	    return false;
+	}
+	for (int i = 0; i < list.size(); i++) {
+	    if (list.get(i) != get(i)) {
+		return false;
+	    }
+	}
+	return true;
+    }
+
+    // returns the last given index of an element or -1 if it isn't in the list
+    public int lastIndexOf(Object o) {
+	int index = -1;
+	for (int i = 0; i < size(); i++) {
+	    if (get(i) == o) {
+		index = i;
+	    }
+	}
+	return index;
+    }
+
+    // remove a given element from the list
+    public boolean remove(Object o) {
+	E element = (E) o;
+	if (contains(element) == true) {
+	    remove(indexOf(element));
+	    return true;
+	}
+	return false;
+    }
+
+    // removes all elements from the first index up to the second index from the list, assuming those indexes exist
+    public void removeRange(int fromIndex, int toIndex) {
+	if (fromIndex >= toIndex || fromIndex < 0 || toIndex >= size()) {
+	    throw new IndexOutOfBoundsException();
+	} else {
+	    for (int i = fromIndex; i < toIndex; i++) {
+		remove(fromIndex);
+	    }
+	}
+    }
+
+    // returns all elements from the first index up to the second index in the list after storing them in another list
+    public ArrayList<E> sublist(int fromIndex, int toIndex) {
+	ArrayList<E> list = new ArrayList<E>();
+	if (fromIndex >= toIndex || fromIndex < 0 || toIndex >= size()) {
+	    throw new IndexOutOfBoundsException();
+	}
+	for (int i = fromIndex; i < toIndex; i++) {
+	    list.add(get(i));
+	}
+	return list;
+    }
+    
+    // *****************************************************
+    
+    // ============================
+    // DO NOT MODIFY THE CODE BELOW
+    // ============================
+    
+    // post: returns the current number of elements in the list
+    public int size() {
+        return size;
+    }
+
+    // pre : 0 <= index < size() (throws IndexOutOfBoundsException if not)
+    // post: returns the value at the given index in the list
+    public E get(int index) {
+        checkIndex(index);
+        return elementData[index];
+    }
+
+    // post: creates a comma-separated, bracketed version of the list
+    public String toString() {
+        if (size == 0) {
+            return "[]";
+        } else {
+            String result = "[" + elementData[0];
+            for (int i = 1; i < size; i++) {
+                result += ", " + elementData[i];
+            }
+            result += "]";
+            return result;
+        }
+    }
+
+    // post : returns the position of the first occurrence of the given
+    //        value (-1 if not found)
+    public int indexOf(E value) {
+        for (int i = 0; i < size; i++) {
+            if (elementData[i].equals(value)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    // post: returns true if list is empty, false otherwise
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    // post: returns true if the given value is contained in the list,
+    //       false otherwise
+    public boolean contains(E value) {
+        return indexOf(value) >= 0;
+    }
+
+    // post: appends the given value to the end of the list
+    public void add(E value) {
+        ensureCapacity(size + 1);
+        elementData[size] = value;
+        size++;
+    }
+
+    // pre : 0 <= index <= size() (throws IndexOutOfBoundsException if not)
+    // post: inserts the given value at the given index, shifting subsequent
+    //       values right
+    public void add(int index, E value) {
+        if (index < 0 || index > size) {
+            throw new IndexOutOfBoundsException("index: " + index);
+        }
+        ensureCapacity(size + 1);
+        for (int i = size; i >= index + 1; i--) {
+            elementData[i] = elementData[i - 1];
+        }
+        elementData[index] = value;
+        size++;
+    }
+
+    // pre : 0 <= index < size() (throws IndexOutOfBoundsException if not)
+    // post: removes value at the given index, shifting subsequent values left
+    public void remove(int index) {
+        checkIndex(index);
+        for (int i = index; i < size - 1; i++) {
+            elementData[i] = elementData[i + 1];
+        }
+        size--;
+	trim();
+    }
+
+    // pre : 0 <= index < size() (throws IndexOutOfBoundsException if not)
+    // post: replaces the value at the given index with the given value
+    public void set(int index, E value) {
+        checkIndex(index);
+        elementData[index] = value;
+    }
+
+    // post: list is empty
+    public void clear() {
+        size = 0;
+    }
+
+    // post: appends all values in the given list to the end of this list
+    public void addAll(ArrayList<E> other) {
+        ensureCapacity(size + other.size);
+        for (int i = 0; i < other.size; i++) {
+            add(other.elementData[i]);
+        }
+    }
+
+    // post: returns an iterator for this list
+    public Iterator<E> iterator() {
+        return new ArrayListIterator();
+    }
+
+    // post: ensures that the underlying array has the given capacity; if not,
+    //       the size is doubled (or more if given capacity is even larger)
+    public void ensureCapacity(int capacity) {
+        if (capacity > elementData.length) {
+            int newCapacity = elementData.length * 2 + 1;
+            if (capacity > newCapacity) {
+                newCapacity = capacity;
+            }
+            elementData = Arrays.copyOf(elementData, newCapacity);
+        }
+    }
+
+    // post: throws an IndexOutOfBoundsException if the given index is
+    //       not a legal index of the current list
+    private void checkIndex(int index) {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException("index: " + index);
+        }
+    }
+
+    public int capacity() {
+        return elementData.length;
+    }
+    
+    private void trim () {
+        if (size > elementData.length / 4)
+            return ;
+        E [] temp = (E[]) new Object [size*2 + 1];
+        for (int i =0; i < size; i++)
+            temp[i] = elementData[i];
+        elementData = temp;
+        
+    }
+    
+    public ArrayList<E> intersection (ArrayList<E> other) {
+        ArrayList<E>  result = new ArrayList<E>();
+        for (int i = 0; i < other.size; i++) {
+            E item = other.get(i);
+            if (contains(item) && !result.contains(item))
+                result.add(item);
+        }
+        return result;
+    }
+
+    // ==================================================================
+    // INNER CLASS, do not edit
+    private class ArrayListIterator implements Iterator<E> {
+        private int position;           // current position within the list
+        private boolean removeOK;       // whether it's okay to remove now
+
+        // post: constructs an iterator for the given list
+        public ArrayListIterator() {
+            position = 0;
+            removeOK = false;
+        }
+
+        // post: returns true if there are more elements left, false otherwise
+        public boolean hasNext() {
+            return position < size();
+        }
+
+        // pre : hasNext() (throws NoSuchElementException if not)
+        // post: returns the next element in the iteration
+        public E next() {
+            if (!hasNext()) {
+                throw new NoSuchElementException();
+            }
+            E result = elementData[position];
+            position++;
+            removeOK = true;
+            return result;
+        }
+
+        // pre : next() has been called without a call on remove (throws
+        //       IllegalStateException if not)
+        // post: removes the last element returned by the iterator
+        public void remove() {
+            if (!removeOK) {
+                throw new IllegalStateException();
+            }
+            ArrayList.this.remove(position - 1);
+            position--;
+            removeOK = false;
+        }
+    }
+}
