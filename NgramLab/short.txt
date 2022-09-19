@@ -1,0 +1,4 @@
+This is a short input file composed entirely of spaces and lowercase letters.
+It also has end of line characters to help you test your code.  Isn't this fun?
+Well, that's dandy. I'm not so sure.
+
