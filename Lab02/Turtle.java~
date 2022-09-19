@@ -1,0 +1,8 @@
+/* Chris Rose
+Assignment 02
+Mrs. Grabowski */
+
+public class Turtle implements Critter {
+    public char getChar() {
+	return 'T';
+    }

@@ -1,0 +1,30 @@
+/* Chris Rose
+Assignment 02
+Mrs. Grabowski */
+import java.util.*;
+
+public class Frog implements Critter {
+    int count = 0;
+    Random r = new Random();
+    int a = r.nextInt(4);
+    
+    public char getChar() {
+	return 'F';
+    }
+    public int getMove(CritterInfo Critter) {
+	if (count == 3) {
+	a = r.nextInt(4);
+	count = 0;
+	}
+       	count++;
+	if (a == 0) {
+	    return NORTH;
+	} else if (a == 1){
+	    return SOUTH;
+	} else if (a == 2) {
+	    return WEST;
+	} else {
+	    return EAST;
+	}
+    }
+}

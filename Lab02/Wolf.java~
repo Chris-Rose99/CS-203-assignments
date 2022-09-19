@@ -1,0 +1,21 @@
+/* Chris Rose
+Assignment 02
+Mrs. Grabowski */
+
+public class Wolf implements Critter {
+    int c = 0;
+    Random r = new Random();
+    int a = r.nextInt(1) + 1;
+
+    public char getChar() {
+	return 'W';
+    }
+
+    public int getMove(CritterInfo Critter) {
+	if (c == 0) {
+	    c = a;
+	    return NORTH;
+       	} else if (c == 1) {
+	    c = ;
+	    return WEST;
+	} {

@@ -1,0 +1,13 @@
+/* Chris Rose
+Assignment 02
+Mrs.Grabowski */
+import java.util.*;
+
+public class Mouse implements Critter {
+    public char getChar() {
+	return 'M';
+    }
+    public int getMove(CritterInfo Info) {
+	return WEST;
+    }
+}
