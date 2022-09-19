@@ -1,0 +1,45 @@
+/* Christopher Rose
+203 Assignment 10
+Dr. Grabowski */
+
+public class Decode {
+
+    public static void main(String[] args)
+	
+	throws FileNotFoundException {
+
+	// establishes the file refered to and uses scanner so it could be read
+	String fileName = args[0];
+	File f = new File(fileName + ".txt");
+	Scanner sc = new Scanner(f);
+
+	// Only happens if the file can be found
+	if (f.exists()) {
+	    String full = sc.next();
+	    ArrayList<String> list = new ArrayList<String>();
+	    String s = "";
+	    for (int i = 0; i < full.length(); i++) {
+		if (charAt(i) == "-" || charAt(i) == ".") {
+		    s = s + charAt(i);
+		} else if (charAt(i) == "|") {
+		    list.add(s);
+		    s = "";
+		} else {
+		    list.add(s);
+		    list.add(charAt(i));
+		    s = "";
+		}
+	    }
+
+	    String fin = "";
+	    for (int i = 0; i < list.size(); i++) {
+		if (list.get(i).contains("-") || list.get(i).contains(".")){
+		    fin = " " + fin + getLetter(list.get(i));
+		} else {
+		    fin = fin + list.get(i);
+		}
+	    }
+	    System.out.println(fin);
+	}
+    }
+}
