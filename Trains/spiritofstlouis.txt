@@ -1,0 +1,7 @@
+# this is fake data for testing
+SpiritOfStLouis
+ 10.5 TANK01  Red petroleum tanker
+13.0 TANK262 Blue petroleum tanker w/ graffiti
+  12.1 TANK33  Red petroleum tanker
+1.0 BOX...  Empty boxcar (formerly occupied by children)
+   11.0 CAB     Caboose

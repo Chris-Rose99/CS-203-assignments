@@ -1,0 +1,9 @@
+# this is fake data for testing
+TheOrientExpress
+ # indented comment?
+15 COALX   Coal car
+10  BX112 Box car of furniture
+   9.5   UNKN
+ 13.4 AGATHA Murder car
+#      12.0 FLAT Pig iron hauler
+# comment at the end?

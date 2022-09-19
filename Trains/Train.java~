@@ -1,0 +1,69 @@
+/* Christopher Rose
+Assignment 05
+Dr.Grabowski */
+
+import java.lang.*;
+
+public class Train implements TrainInterface {
+
+    public static void loadTrain() {
+
+    }
+
+    // quits the program
+    public void quit() {
+	System.exit(0);
+    }
+
+    public void help() {
+	System.out.println("quit: Terminate the program.");
+	System.out.println("help: List valid commands");
+	System.out.println("trains: Prints out the names of all the trains");
+	System.out.println("list: Print out current contents of the named train");
+	System.out.println("weight: Display the total weight of the named train");
+	System.out.println("size: Display the length of the named train");
+	System.out.println("add: Adds the given car to the named train");
+	System.out.println("remove: Remove the car from the train");
+	System.out.println("decouple: Remove all cars from the named car to the end of the train");
+	System.out.println("find: Give the train name (if any) containing the named car");
+	System.out.println("check: Check if the two trains combined weight is less than or equal to 200 tons");
+	System.out.println("join: Attach the cars of train 2 to the end of train 1 ");
+    }
+
+    public String trains() {
+	
+    }
+
+    public void list(train name) {
+
+    }
+
+    public int weight(train name) {
+
+    }
+
+    public void add() {
+	
+    }
+
+    public void remove() {
+
+    }
+
+    public void decouple() {
+
+    }
+
+    public void find() {
+
+    }
+
+    public String check() {
+
+    }
+
+    public void join() {
+
+    }
+
+}
